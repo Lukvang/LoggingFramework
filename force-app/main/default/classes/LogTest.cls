@@ -22,10 +22,19 @@ public with sharing class LogTest {
         insert settings;
     }   
 
-    static testMethod void testCreateDebugLog()
+    static testMethod void testCreateDebugLog1()
     {
         Test.startTest();
         Log.createDebugLog('This is a test');
+        Log.insertLogs();
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
+    }
+    
+    static testMethod void testCreateDebugLog2()
+    {
+        Test.startTest();
+        Log.createDebugLog('This is a test', 'test', 'test');
         Log.insertLogs();
         Test.stopTest();
         System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
@@ -40,7 +49,7 @@ public with sharing class LogTest {
         System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
     }
 
-    static testMethod void testCreateExceptionLog()
+    static testMethod void testCreateExceptionLog1()
     {
         Test.startTest();
         try{
@@ -54,8 +63,24 @@ public with sharing class LogTest {
         Test.stopTest();
         System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
     }
+    
+        static testMethod void testCreateExceptionLog2()
+    {
+        Test.startTest();
+        try{
+            Account a = new Account();
+            insert a;
+        }catch(Exception ex){
+            Log.createExceptionLog(ex, 'test', 'test');
+        }finally{
+            Log.insertLogs();
+        }
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
+    }
 
-    static testMethod void testCreateOutboundAPILog()
+
+    static testMethod void testCreateOutboundAPILog1()
     {
         Test.startTest();
         HttpRequest request  = new HttpRequest();
@@ -65,12 +90,35 @@ public with sharing class LogTest {
         Test.stopTest();
         System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
     }
+    
+    static testMethod void testCreateOutboundAPILog2()
+    {
+        Test.startTest();
+        HttpRequest request  = new HttpRequest();
+        HttpResponse response = new HttpResponse();
+        Log.createOutboundAPILog(request, response, 'test', 'test');
+        Log.insertLogs();
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
+    }
 
-    static testMethod void testCreateInboundAPILog()
+
+    static testMethod void testCreateInboundAPILog1()
     {
         Test.startTest();
         RestRequest request = new RestRequest();
         Log.createInboundAPILog(request);
+        Log.insertLogs();
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Log__c]);
+    }
+    
+    
+    static testMethod void testCreateInboundAPILog2()
+    {
+        Test.startTest();
+        RestRequest request = new RestRequest();
+        Log.createInboundAPILog(request,'test', 'test');
         Log.insertLogs();
         Test.stopTest();
         System.assertEquals(1, [SELECT COUNT() FROM Log__c]);

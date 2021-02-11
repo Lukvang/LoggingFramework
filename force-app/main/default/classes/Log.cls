@@ -9,6 +9,7 @@
  * Modifications Log 
  * Ver   Date         Author               Modification
  * 1.0   02-10-2021   lukevang@lvsolutions.co   Initial Version
+ * 1.1   02-10-2021   lukevang@lvsolutions.co   Updating to include methods that allow manual enttry of classname and method
 **/
 global with sharing class Log {
     
@@ -26,6 +27,22 @@ global with sharing class Log {
         log.Type__c = 'DEBUG';
         addLog(log);
     }
+
+       /**
+    * @description used to log general debug statements
+    * @author lukevang@lvsolutions.co | 02-10-2021 
+    * @param message 
+    * @param className
+    * @param methodName
+    **/
+    global static void createDebugLog(String message, String className, String methodName){
+        Log__c log = new Log__c ();
+        log.Message__c = message;
+        log.Type__c = 'DEBUG';
+        log.Class_Name__c = className;
+        log.Method_Name__c = methodName;
+        addLog(log);
+    }
     
     /**
     * @description used to log exceptions
@@ -40,6 +57,26 @@ global with sharing class Log {
         log.Type__c = 'EXCEPTION';
         log.Line_Number__c = ex.getLineNumber();
         log.Type_Name__c = ex.getTypeName();
+        addLog(log);
+    }
+
+   /**
+    * @description used to log exceptions
+    * @author lukevang@lvsolutions.co | 02-10-2021 
+    * @param ex 
+    * @param className
+    * @param methodName
+    **/
+    global static void createExceptionLog(Exception ex, String className, String methodName)
+    {
+        Log__c log = new Log__c ();
+        log.Message__c = ex.getMessage();
+        log.Stack_Trace__c = ex.getStackTraceString();
+        log.Type__c = 'EXCEPTION';
+        log.Line_Number__c = ex.getLineNumber();
+        log.Type_Name__c = ex.getTypeName();
+        log.Class_Name__c = className;
+        log.Method_Name__c = methodName;
         addLog(log);
     }
 
@@ -62,6 +99,29 @@ global with sharing class Log {
         addLog(log);
     }
 
+   /**
+    * @description used to log outbound API calls
+    * @author lukevang@lvsolutions.co | 02-10-2021 
+    * @param request 
+    * @param response 
+    * @param className
+    * @param methodName
+    **/
+    global static void createOutboundAPILog(HttpRequest request, HttpResponse response,  String className, String methodName)
+    {
+        Log__c log = new Log__c ();
+        log.Request_Body__c = request.getBody() != null ? request.getBody() : null;
+        log.Method__c = request.getMethod() != null ? request.getMethod() : null;
+        log.Endpoint__c =request.getEndpoint() != null ? request.getEndpoint() : null;
+        log.Response_Body__c = response.getBody() != null ? response.getBody() : null;
+        log.Status__c = response.getStatus() != null ? response.getStatus() : null;
+        log.Status_Code__c = response.getStatusCode() != null ? response.getStatusCode() : null;
+        log.Type__c = 'API OUTBOUND';
+        log.Class_Name__c = className;
+        log.Method_Name__c = methodName;
+        addLog(log);
+    }
+
     /**
     * @description used to log inbound api requets
     * @author lukevang@lvsolutions.co | 02-10-2021 
@@ -74,6 +134,25 @@ global with sharing class Log {
         log.Method__c = request.httpMethod != null ? request.httpMethod : null;
         log.Endpoint__c = request.resourcePath != null ? request.resourcePath : null;
         log.Type__c = 'API INBOUND';
+        addLog(log);
+    }
+
+   /**
+    * @description used to log inbound api requets
+    * @author lukevang@lvsolutions.co | 02-10-2021 
+    * @param request 
+    * @param className
+    * @param methodName
+    **/
+    global static void createInboundAPILog(RestRequest request,   String className, String methodName)
+    {
+        Log__c log = new Log__c ();
+        log.Request_Body__c = request.requestBody != null ? request.requestBody.toString() : null;
+        log.Method__c = request.httpMethod != null ? request.httpMethod : null;
+        log.Endpoint__c = request.resourcePath != null ? request.resourcePath : null;
+        log.Type__c = 'API INBOUND';
+        log.Class_Name__c = className;
+        log.Method_Name__c = methodName;
         addLog(log);
     }
     
@@ -138,7 +217,10 @@ global with sharing class Log {
         log.Heap_Size__c = Limits.getHeapSize();
         log.Queries__c = Limits.getQueries();
         log.Running_User__c = UserInfo.getUserId();
-        populateClassAndMethod(log);
+        if(log.Class_Name__c == null && log.Method_Name__c == null)
+        {
+            populateClassAndMethod(log);
+        }
         logsToInsert.add(log);
     }
 

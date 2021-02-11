@@ -7,9 +7,13 @@ This is a simple logging framework to log exceptions, general logs, and API requ
 | Method  |  Description |
 | ------------- | ------------- |
 | Log.createDebugLogs(String message)  | Creates a log record of type DEBUG  | 
+| Log.createDebugLogs(String message, String className, String methodName)  | Creates a log record of type DEBUG  | 
 | Log.createExceptionLog(Exception ex)  | Creates a log record of type EXCEPTION  | 
+| Log.createExceptionLog(Exception ex, String className, String methodName)  | Creates a log record of type EXCEPTION  | 
 | Log.createOutboundAPILog(HttpRequest request, HttpResponse response)  | Creates a log record of type OUTBOUND API  |
+| Log.createOutboundAPILog(HttpRequest request, HttpResponse response, String className, String methodName)  | Creates a log record of type OUTBOUND API  |
 | Log.createInboundAPILog(RestRequest request)  | Creates a log record of type INBOUND API  | 
+| Log.createInboundAPILog(RestRequest request, String className, String methodName)  | Creates a log record of type INBOUND API  | 
 | Log.insertLogs()  | Performs a DML opertion to insert logs  | 
 | Log.insertLogsFuture()  | Performs future call to perform DML operation to insert logs  | 
 
