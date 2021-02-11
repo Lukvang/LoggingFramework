@@ -2,6 +2,10 @@
 
 This is a simple logging framework to log exceptions, general logs, and API requests.
 
+## Install link
+
+https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4x000000MpCS
+
 ## Available Methods
 
 | Method  |  Description |
@@ -15,6 +19,8 @@ This is a simple logging framework to log exceptions, general logs, and API requ
 
 
 ## Example Usage
+
+Enable logging through custom setting first or else logging will now work. 
 
 ### Log.createDebugLogs(String message)
 ```
