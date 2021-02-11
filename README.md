@@ -24,7 +24,7 @@ This is a simple logging framework to log exceptions, general logs, and API requ
 
 ## Example Usage
 
-Enable logging through custom setting first or else logging will now work. 
+Enable logging through custom setting first or else logging will not work. 
 
 ### Log.createDebugLogs(String message)
 ```
