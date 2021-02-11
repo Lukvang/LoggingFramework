@@ -1,6 +1,6 @@
 # Error Logger
 
-This is a simple logging framework to log exceptions, general logs, and API requests.
+This is a simple logging framework to log exceptions, general logs, and API requests for Salesforce.
 
 ## Install link
 
