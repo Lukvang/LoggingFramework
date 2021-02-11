@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Endpoint__c</fullName>
+    <description>Retrieves the URL for the endpoint of the external server for this request.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Retrieves the URL for the endpoint of the external server for this request.</inlineHelpText>
+    <label>Endpoint</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
