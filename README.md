@@ -2,7 +2,7 @@
 
 This is a simple logging framework to log exceptions, general logs, and API requests for Salesforce.
 
-## Install link
+## Install link for unmanaged package
 
 https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4x000000MpCS
 
