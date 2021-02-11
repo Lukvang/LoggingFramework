@@ -4,7 +4,7 @@ This is a simple logging framework to log exceptions, general logs, and API requ
 
 ## Install link for unmanaged package
 
-https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4x000000MpCS
+	https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4x000000MpCX
 
 ## Available Methods
 
